@@ -49,10 +49,10 @@ function renderHome() {
       </p>
 
       <!-- LOGIN BUTTONS -->
-      <div class="actions">
-      <button onclick="login('citizen')">Citizen Login</button>
-      <button onclick="login('admin')">Admin Login</button>
-      </div>
+     <div class="actions">
+     <button onclick="login('citizen')"><i class="fas fa-user"></i> Citizen Login</button>
+     <button onclick="login('admin')"><i class="fas fa-user-shield"></i> Admin Login</button>
+     </div>
       <div class="stats">
       <div><h2>12,847</h2><p>Issues Resolved</p></div>
       <div><h2>3,200+</h2><p>Active Reports</p></div>
