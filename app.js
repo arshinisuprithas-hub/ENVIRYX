@@ -183,27 +183,27 @@ function renderDashboard() {
 }
 
   complaints.forEach(c => {
-    html += `
-      <div class="dash-item">
-        <div>
-          <strong>${c.title}</strong><br>
-          <span>${c.department} | ${c.priority} | ${c.status}</span><br>
-          <span>${c.panchayat}</span>
-        </div>
-        <button onclick="resolve('${c.id}')">Resolve</button>
-      </div>
-    `;
-  });
-
   html += `
-        </div>
+    <div class="dash-item">
+      <div>
+        <strong>${c.title}</strong><br>
+        <span>${c.department} | ${c.priority} | ${c.status}</span><br>
+        <span>${c.panchayat}</span>
       </div>
+      <button onclick="resolve('${c.id}')">Resolve</button>
     </div>
   `;
+});
 
-  document.getElementById("app").innerHTML = html;
+html += `
+      </div>
+    </div>
+  </div>
+`;
+
+document.getElementById("app").innerHTML = html;
+updateDashboard(complaints);
 }
- 
 
 function resolve(id) {
   complaints = complaints.map(c => {
