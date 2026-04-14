@@ -90,12 +90,17 @@ function classify(text) {
 
 function renderReport() {
   document.getElementById("app").innerHTML = `
-    <h2>Report Issue</h2>
-    <input id="desc" placeholder="Describe issue"><br>
-    <button onclick="submitIssue()">Submit</button>
-    <div id="result"></div>
-    <button onclick="renderHome()">Back</button>
-  `;
+   <div class="report-container">
+
+  <h2>Report Issue</h2>
+
+  <input type="text" placeholder="Describe issue" />
+
+  <button onclick="submitIssue()">Submit</button>
+
+  <button onclick="renderHome()">Back</button>
+
+</div>
 }
 
 function submitIssue() {
