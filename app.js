@@ -87,61 +87,73 @@ function classify(text) {
 
   return {type:"General", dept:"General", priority:"Low"};
 }
-
 function renderReport() {
   document.getElementById("app").innerHTML = `
-   <div class="report-container">
+    <div class="hero">
+      <div class="report-container">
+        <h2>Report Issue</h2>
 
-  <h2>Report Issue</h2>
+        <input id="desc" type="text" placeholder="Describe issue" />
 
-  <input type="text" placeholder="Describe issue" />
+        <div id="result"></div>
 
-  <button onclick="submitIssue()">Submit</button>
-
-  <button onclick="renderHome()">Back</button>
-
-</div>
+        <button onclick="submitIssue()">Submit</button>
+        <button onclick="renderHome()">Back</button>
+      </div>
+    </div>
+  `;
 }
 
-function submitIssue() {
-  let desc = document.getElementById("desc").value;
-  let ai = classify(desc);
-
-  let newItem = {
-    id: "CMP-" + (complaints.length+1),
-    issue_type: ai.type,
-    title: desc,
-    panchayat: "Tambaram",
-    department: ai.dept,
-    priority: ai.priority,
-    status: "Submitted"
-  };
-
-  complaints.push(newItem);
-  save();
-
-  document.getElementById("result").innerHTML =
-    "AI Detected: " + ai.type + " | Priority: " + ai.priority;
-}
 
 function renderDashboard() {
-  let html = "<h2>Dashboard</h2>";
+  let html = `
+    <div class="hero">
+      <div class="dashboard-container">
+        <div class="dashboard-header">
+          <h2>Admin Dashboard</h2>
+          <button onclick="renderHome()">Back</button>
+        </div>
+
+        <div class="dashboard-stats">
+          <div class="dash-card">
+            <h3>${complaints.length}</h3>
+            <p>Total Complaints</p>
+          </div>
+          <div class="dash-card">
+            <h3>${complaints.filter(c => c.status === "Submitted").length}</h3>
+            <p>Pending</p>
+          </div>
+          <div class="dash-card">
+            <h3>${complaints.filter(c => c.status === "Resolved").length}</h3>
+            <p>Resolved</p>
+          </div>
+        </div>
+
+        <div class="dashboard-list">
+  `;
 
   complaints.forEach(c => {
     html += `
-      <div class="card">
-        ${c.title} <br>
-        ${c.department} | ${c.priority} | ${c.status}
-        <br>
+      <div class="dash-item">
+        <div>
+          <strong>${c.title}</strong><br>
+          <span>${c.department} | ${c.priority} | ${c.status}</span><br>
+          <span>${c.panchayat}</span>
+        </div>
         <button onclick="resolve('${c.id}')">Resolve</button>
       </div>
     `;
   });
 
-  html += `<button onclick="renderHome()">Back</button>`;
+  html += `
+        </div>
+      </div>
+    </div>
+  `;
 
   document.getElementById("app").innerHTML = html;
 }
+ 
 
 function resolve(id) {
   complaints = complaints.map(c => {
