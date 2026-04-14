@@ -1,55 +1,72 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
   color: white;
+  background: url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d") no-repeat center/cover;
+}
+
+/* DARK OVERLAY */
+.hero {
+  background: rgba(0,0,0,0.75);
+  height: 100vh;
 }
 
 /* NAVBAR */
 .nav {
   display: flex;
   justify-content: space-between;
-  padding: 20px 40px;
+  padding: 20px 50px;
 }
 
-.nav button {
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo i {
+  color: #22c55e;
+  font-size: 22px;
+}
+
+.nav-links button {
   background: transparent;
   border: none;
   color: white;
-  margin-left: 10px;
+  margin-left: 15px;
   cursor: pointer;
 }
 
-/* HERO */
-.hero {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
+/* HERO CONTENT */
 .hero-content {
-  margin-top: 80px;
+  margin-top: 100px;
   padding-left: 60px;
   max-width: 700px;
 }
 
 .hero-content h1 {
-  font-size: 48px;
-  line-height: 1.2;
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #22c55e;
 }
 
-.hero-content span {
+.tagline {
+  font-size: 36px;
+}
+
+.tagline span {
   color: #3b82f6;
 }
 
 .hero-content p {
   margin-top: 15px;
-  color: #cbd5f5;
+  color: #d1d5db;
 }
 
 /* BUTTONS */
 .actions {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .actions button {
@@ -60,22 +77,23 @@ body {
   cursor: pointer;
   background: #3b82f6;
   color: white;
+  font-weight: bold;
 }
 
 .actions button:hover {
   background: #2563eb;
 }
 
-/* VOICE */
+/* VOICE BUTTON */
 .voice {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .voice button {
   font-size: 20px;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   background: #22c55e;
   border: none;
   cursor: pointer;
