@@ -81,25 +81,43 @@ function login(role) {
 function classify(text) {
   text = text.toLowerCase();
 
-  if (text.includes("water")) return {type:"Water", dept:"Water", priority:"High"};
-  if (text.includes("garbage")) return {type:"Sanitation", dept:"Sanitation", priority:"Medium"};
-  if (text.includes("power")) return {type:"Electricity", dept:"Electricity", priority:"High"};
+  if (text.includes("water") || text.includes("leak"))
+    return {type:"Water Issue", dept:"Water Dept", priority:"High"};
 
-  return {type:"General", dept:"General", priority:"Low"};
+  if (text.includes("garbage") || text.includes("waste"))
+    return {type:"Sanitation Issue", dept:"Sanitation Dept", priority:"Medium"};
+
+  if (text.includes("light") || text.includes("power"))
+    return {type:"Electricity Issue", dept:"Electricity Dept", priority:"High"};
+
+  if (text.includes("road") || text.includes("pothole"))
+    return {type:"Road Issue", dept:"Roads Dept", priority:"High"};
+
+  return {type:"General Issue", dept:"General Dept", priority:"Low"};
 }
 function renderReport() {
   document.getElementById("app").innerHTML = `
     <div class="hero">
-      <div class="report-container">
-        <h2>Report Issue</h2>
 
-        <input id="desc" type="text" placeholder="Describe issue" />
+      <div class="report-container ai-box">
 
-        <div id="result"></div>
+        <h2>🤖 AI Issue Reporting</h2>
 
-        <button onclick="submitIssue()">Submit</button>
+        <input id="desc" type="text" placeholder="Describe the issue (e.g., water leakage)" />
+
+        <input id="imageInput" type="file" accept="image/*" />
+
+        <div id="preview"></div>
+
+        <button onclick="runAI()">Analyze with AI</button>
+
+        <div id="result" class="ai-result"></div>
+
+        <button onclick="submitIssue()">Submit Issue</button>
         <button onclick="renderHome()">Back</button>
+
       </div>
+
     </div>
   `;
 }
@@ -182,3 +200,57 @@ function toggleVoice() {
 }
 
 renderHome();
+function runAI() {
+  let desc = document.getElementById("desc").value;
+  let file = document.getElementById("imageInput").files[0];
+
+  if (!desc && !file) {
+    alert("Please enter description or upload image");
+    return;
+  }
+
+  let ai = classify(desc);
+
+  // IMAGE PREVIEW
+  if (file) {
+    let reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById("preview").innerHTML =
+        `<img src="${e.target.result}" width="100%" style="border-radius:10px; margin-top:10px;">`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  document.getElementById("result").innerHTML = `
+    <h3>AI Analysis Result</h3>
+    <p><strong>Issue Type:</strong> ${ai.type}</p>
+    <p><strong>Department:</strong> ${ai.dept}</p>
+    <p><strong>Priority:</strong> ${ai.priority}</p>
+  `;
+}
+function submitIssue() {
+  let desc = document.getElementById("desc").value;
+
+  if (!desc) {
+    alert("Please enter issue description");
+    return;
+  }
+
+  let ai = classify(desc);
+
+  let newItem = {
+    id: "CMP-" + (complaints.length + 1),
+    issue_type: ai.type,
+    title: desc,
+    panchayat: "Tambaram",
+    department: ai.dept,
+    priority: ai.priority,
+    status: "Submitted"
+  };
+
+  complaints.push(newItem);
+  save();
+
+  alert("✅ Issue submitted with AI classification!");
+  renderDashboard();
+}
