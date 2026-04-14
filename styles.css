@@ -311,3 +311,21 @@ body {
   border-left: 4px solid #22c55e;
   border-radius: 8px;
 }
+.map-box {
+  margin: 25px 0;
+}
+
+#mapGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.map-cell {
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  min-width: 120px;
+  text-align: center;
+}
