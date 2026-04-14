@@ -175,3 +175,42 @@ body {
   color: #d1d5db;
   font-size: 14px;
 }
+.report-container {
+  position: relative;
+  z-index: 2;
+  max-width: 400px;
+  margin: 150px 60px;
+  padding: 30px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.report-container h2 {
+  margin-bottom: 20px;
+}
+
+.report-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+.report-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #3b82f6;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.report-container button:hover {
+  background: #2563eb;
+}
