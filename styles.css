@@ -110,3 +110,17 @@ body {
 .voice button:hover {
   background: #16a34a;
 }
+.stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.stats div h2 {
+  color: #22c55e;
+  font-size: 28px;
+}
+
+.stats div p {
+  color: #d1d5db;
+}
