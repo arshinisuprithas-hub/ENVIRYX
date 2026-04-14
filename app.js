@@ -97,16 +97,13 @@ function classify(text) {
   return {type:"General Issue", dept:"General Dept", priority:"Low"};
 }
 function renderReport() {
-  document.getElementById("active").innerText =
-  data.filter(c => c.status !== "Resolved").length;
+  document.getElementById("app").innerHTML = `
     <div class="hero">
-
       <div class="report-container ai-box">
 
         <h2>🤖 AI Issue Reporting</h2>
 
-        <input id="desc" type="text" placeholder="Describe the issue (e.g., water leakage)" />
-
+        <input id="desc" type="text" placeholder="Describe the issue" />
         <input id="imageInput" type="file" accept="image/*" />
 
         <div id="preview"></div>
@@ -119,7 +116,6 @@ function renderReport() {
         <button onclick="renderHome()">Back</button>
 
       </div>
-
     </div>
   `;
 }
@@ -141,24 +137,23 @@ function renderDashboard() {
             <option value="all">All</option>
             <option value="Tambaram">Tambaram</option>
             <option value="Kovalam">Kovalam</option>
-      <div class="ai-insights">
-  <div class="insight red">
-    <h4>Water Leak Surge</h4>
-    <p>Expected increase in next 48 hours</p>
-  </div>
-  <div class="insight orange">
-    <h4>Waste Optimization</h4>
-    <p>Improve collection efficiency</p>
-  </div>
-  <div class="insight blue">
-    <h4>Pollution Pattern</h4>
-    <p>Industrial zone spikes detected</p>
-      renderCharts();
-  </div>
-</div>
-          </select>
-        </div>
-
+                </select>
+                </div>
+                <div class="ai-insights">
+                <div class="insight red">
+                <h4>Water Leak Surge</h4>
+                <p>Expected increase in next 48 hours</p>
+                </div>
+                <div class="insight orange">
+                <h4>Waste Optimization</h4>
+                <p>Improve collection efficiency</p>
+                </div>
+                <div class="insight blue">
+                <h4>Pollution Pattern</h4>
+                <p>Industrial zone spikes detected</p>
+                renderCharts();
+                </div>
+                </div>
         <!-- STATS -->
         <div class="dashboard-stats">
           <div class="dash-card">
@@ -180,26 +175,6 @@ function renderDashboard() {
           <h3>Department Breakdown</h3>
           <div id="deptStats"></div>
         </div>
-
-        <!-- HEATMAP -->
-        let html = "";
-  for (let area in grouped) {
-  let count = grouped[area];
-
-  let color = "#22c55e";
-  if (count > 2) color = "#f59e0b";
-  if (count > 4) color = "#ef4444";
-
-  html += `
-    <div class="heat-row">
-      <span>${area}</span>
-      <div class="bar">
-        <div class="fill" style="width:${count*20}%; background:${color}"></div>
-      </div>
-      <span>${count} issues</span>
-    </div>
-  `;
-}
 
         <!-- LIST -->
         <div class="dashboard-list" id="complaintList"></div>
@@ -377,8 +352,7 @@ function searchComplaints(value) {
   );
   updateDashboard(filtered);
 }
-<canvas id="lineChart"></canvas>
-<canvas id="pieChart"></canvas>
+
 function renderCharts() {
 
   new Chart(document.getElementById("lineChart"), {
