@@ -177,11 +177,6 @@ function renderDashboard() {
     </div>
   `;
 
-  document.getElementById("app").innerHTML = html;
-
-  updateDashboard(complaints);
-}
-
   complaints.forEach(c => {
   html += `
     <div class="dash-item">
