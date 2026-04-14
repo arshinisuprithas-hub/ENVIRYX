@@ -388,3 +388,36 @@ body {
   bottom: 40px;
   left: 60px;
 }
+.heat-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bar {
+  flex: 1;
+  height: 10px;
+  background: #444;
+  border-radius: 5px;
+}
+
+.fill {
+  height: 100%;
+  border-radius: 5px;
+}
+.ai-insights {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.insight {
+  flex: 1;
+  padding: 15px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+}
+
+.red { border-left: 4px solid red; }
+.orange { border-left: 4px solid orange; }
+.blue { border-left: 4px solid cyan; }
