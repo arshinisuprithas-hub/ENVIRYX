@@ -131,6 +131,7 @@ function resolve(id) {
 
 function toggleVoice() {
   const output = document.getElementById("voiceOutput");
+   output.innerText = "Listening...";
 
   const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 
