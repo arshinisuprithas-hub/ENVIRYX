@@ -176,6 +176,11 @@ function renderDashboard() {
           <h3>Department Breakdown</h3>
           <div id="deptStats"></div>
         </div>
+        <!-- HEATMAP -->
+        <div class="map-box">
+        <h3>📍 Issue Hotspots</h3>
+        <div id="mapGrid"></div>
+        </div>
 
         <!-- LIST -->
         <div class="dashboard-list" id="complaintList"></div>
