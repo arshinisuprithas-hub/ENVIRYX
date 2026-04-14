@@ -66,6 +66,7 @@ function renderHome() {
           <i class="fas fa-microphone"></i>
         </button>
         <p id="voiceOutput"></p>
+        updateDashboard(complaints);
       </div>
 
     </div>
@@ -195,6 +196,7 @@ function resolve(id) {
     return c;
   });
   save();
+  renderCharts();
   renderDashboard();
 }
 
@@ -364,7 +366,7 @@ function renderCharts() {
         { label: "Resolved", data: [5,15,25,35], borderColor: "green" }
       ]
     }
-  });
+    );
 
   new Chart(document.getElementById("pieChart"), {
     type: 'pie',
