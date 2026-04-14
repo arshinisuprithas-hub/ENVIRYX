@@ -21,30 +21,49 @@ function renderHome() {
   
   <div class="hero">
 
+    <!-- NAVBAR -->
     <div class="nav">
-      <h2>Enviryx</h2>
-      <div>
-        <button onclick="renderHome()">Home</button>
-        <button onclick="renderDashboard()">Dashboard</button>
+      <div class="logo">
+        <i class="fas fa-leaf"></i>
+        <h2>Enviryx</h2>
+      </div>
+
+      <div class="nav-links">
+        <button><i class="fas fa-home"></i> Home</button>
+        <button onclick="renderDashboard()"><i class="fas fa-chart-line"></i> Dashboard</button>
       </div>
     </div>
 
+    <!-- HERO CONTENT -->
     <div class="hero-content">
       <h1>
-        Predicting & <span>Preventing</span> Civic Issues
+        ENVIRYX
       </h1>
+
+      <h2 class="tagline">
+        Predicting & <span>Preventing</span> Civic Issues
+      </h2>
 
       <p>
         AI-powered civic infrastructure system to detect, track and resolve issues faster.
       </p>
 
+      <!-- LOGIN BUTTONS -->
       <div class="actions">
-        <button onclick="login('citizen')">Citizen Login</button>
-        <button onclick="login('admin')">Admin Login</button>
+        <button onclick="login('citizen')">
+          <i class="fas fa-user"></i> Citizen Login
+        </button>
+
+        <button onclick="login('admin')">
+          <i class="fas fa-user-shield"></i> Admin Login
+        </button>
       </div>
 
+      <!-- VOICE -->
       <div class="voice">
-        <button onclick="toggleVoice()">🎤</button>
+        <button onclick="toggleVoice()">
+          <i class="fas fa-microphone"></i>
+        </button>
         <p id="voiceOutput"></p>
       </div>
 
@@ -53,7 +72,6 @@ function renderHome() {
   </div>
   `;
 }
-
 function login(role) {
   user = role;
   if (role === "citizen") renderReport();
