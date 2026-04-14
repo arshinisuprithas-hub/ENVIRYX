@@ -29,7 +29,7 @@ function renderHome() {
       </div>
 
       <div class="nav-links">
-        <button><i class="fas fa-home"></i> Home</button>
+        <button onclick="renderHome()"><i class="fas fa-home"></i> Home</button>
         <button onclick="renderDashboard()"><i class="fas fa-chart-line"></i> Dashboard</button>
       </div>
     </div>
@@ -66,13 +66,13 @@ function renderHome() {
           <i class="fas fa-microphone"></i>
         </button>
         <p id="voiceOutput"></p>
-        updateDashboard(complaints);
       </div>
 
     </div>
 
   </div>
   `;
+   updateDashboard(complaints);
 }
 function login(role) {
   user = role;
@@ -152,7 +152,6 @@ function renderDashboard() {
                 <div class="insight blue">
                 <h4>Pollution Pattern</h4>
                 <p>Industrial zone spikes detected</p>
-                renderCharts();
                 </div>
                 </div>
         <!-- STATS -->
@@ -161,6 +160,12 @@ function renderDashboard() {
             <h3 id="total"></h3>
             <p>Total</p>
           </div>
+          <!-- ✅ ADD THIS BLOCK -->
+          <div class="dash-card">
+          <h3 id="active"></h3>
+          <p>Active</p>
+          </div>
+
           <div class="dash-card">
             <h3 id="pending"></h3>
             <p>Pending</p>
@@ -181,12 +186,16 @@ function renderDashboard() {
         <h3>📍 Issue Hotspots</h3>
         <div id="mapGrid"></div>
         </div>
+        <div class="charts">
+  <canvas id="lineChart"></canvas>
+  <canvas id="pieChart"></canvas>
+  </div>
 
         <!-- LIST -->
-        <div class="dashboard-list" id="complaintList"></div>
         <div class="search-box">
         <input type="text" placeholder="Search complaints..." onkeyup="searchComplaints(this.value)">
         </div>
+         <div class="dashboard-list" id="complaintList"></div>
 
       </div>
     </div>
@@ -310,6 +319,8 @@ function updateDashboard(data) {
 
   // COUNTS
   document.getElementById("total").innerText = data.length;
+  document.getElementById("active").innerText =
+  data.filter(c => c.status !== "Resolved").length;
   document.getElementById("pending").innerText =
     data.filter(c => c.status === "Submitted").length;
   document.getElementById("resolved").innerText =
@@ -361,7 +372,9 @@ function searchComplaints(value) {
 }
 
 function renderCharts() {
-
+  
+if (window.chart1) window.chart1.destroy();
+if (window.chart2) window.chart2.destroy();
   new Chart(document.getElementById("lineChart"), {
     type: 'line',
     data: {
