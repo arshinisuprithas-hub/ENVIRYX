@@ -153,6 +153,7 @@ function renderDashboard() {
   <div class="insight blue">
     <h4>Pollution Pattern</h4>
     <p>Industrial zone spikes detected</p>
+      renderCharts();
   </div>
 </div>
           </select>
@@ -376,3 +377,30 @@ function searchComplaints(value) {
   );
   updateDashboard(filtered);
 }
+<canvas id="lineChart"></canvas>
+<canvas id="pieChart"></canvas>
+function renderCharts() {
+
+  new Chart(document.getElementById("lineChart"), {
+    type: 'line',
+    data: {
+      labels: ["Jan","Feb","Mar","Apr"],
+      datasets: [
+        { label: "Reports", data: [10,20,30,40], borderColor: "blue" },
+        { label: "Resolved", data: [5,15,25,35], borderColor: "green" }
+      ]
+    }
+  });
+
+  new Chart(document.getElementById("pieChart"), {
+    type: 'pie',
+    data: {
+      labels: ["Water","Electricity","Sanitation"],
+      datasets: [{
+        data: [10,5,8],
+        backgroundColor: ["blue","yellow","green"]
+      }]
+    }
+  });
+}
+
