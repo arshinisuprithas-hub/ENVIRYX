@@ -122,37 +122,65 @@ function renderReport() {
   `;
 }
 
-
 function renderDashboard() {
   let html = `
     <div class="hero">
       <div class="dashboard-container">
+
         <div class="dashboard-header">
-          <h2>Admin Dashboard</h2>
+          <h2>📊 Civic Dashboard</h2>
           <button onclick="renderHome()">Back</button>
         </div>
 
+        <!-- FILTER -->
+        <div class="filter">
+          <label>Select Panchayat:</label>
+          <select onchange="filterPanchayat(this.value)">
+            <option value="all">All</option>
+            <option value="Tambaram">Tambaram</option>
+            <option value="Kovalam">Kovalam</option>
+          </select>
+        </div>
+
+        <!-- STATS -->
         <div class="dashboard-stats">
           <div class="dash-card">
-            <h3>${complaints.length}</h3>
-            <p>Total Complaints</p>
+            <h3 id="total"></h3>
+            <p>Total</p>
           </div>
           <div class="dash-card">
-            <h3>${complaints.filter(c => c.status === "Submitted").length}</h3>
+            <h3 id="pending"></h3>
             <p>Pending</p>
           </div>
           <div class="dash-card">
-            <h3>${complaints.filter(c => c.status === "Resolved").length}</h3>
+            <h3 id="resolved"></h3>
             <p>Resolved</p>
           </div>
         </div>
 
-        <div class="dashboard-list">
-        <div class="map-box">
-        <h3>📍 Issue Heatmap</h3>
-        <div id="mapGrid"></div>
+        <!-- DEPARTMENT -->
+        <div class="department-box">
+          <h3>Department Breakdown</h3>
+          <div id="deptStats"></div>
         </div>
-        `;
+
+        <!-- HEATMAP -->
+        <div class="map-box">
+          <h3>📍 Heatmap</h3>
+          <div id="mapGrid"></div>
+        </div>
+
+        <!-- LIST -->
+        <div class="dashboard-list" id="complaintList"></div>
+
+      </div>
+    </div>
+  `;
+
+  document.getElementById("app").innerHTML = html;
+
+  updateDashboard(complaints);
+}
 
   complaints.forEach(c => {
     html += `
@@ -249,7 +277,7 @@ function submitIssue() {
     panchayat: "Tambaram",
     department: ai.dept,
     priority: ai.priority,
-    status: "Submitted"
+    status: "Submitted",
     location: { lat: Math.random()*100, lng: Math.random()*100 }
   };
 
@@ -287,30 +315,50 @@ function renderMap(data) {
 
   grid.innerHTML = html;
 }
-function renderMap(data) {
-  let grid = document.getElementById("mapGrid");
+function updateDashboard(data) {
 
-  let grouped = {};
+  // COUNTS
+  document.getElementById("total").innerText = data.length;
+  document.getElementById("pending").innerText =
+    data.filter(c => c.status === "Submitted").length;
+  document.getElementById("resolved").innerText =
+    data.filter(c => c.status === "Resolved").length;
 
+  // DEPARTMENT
+  let dept = {};
   data.forEach(c => {
-    grouped[c.panchayat] = (grouped[c.panchayat] || 0) + 1;
+    dept[c.department] = (dept[c.department] || 0) + 1;
   });
 
-  let html = "";
+  let deptHTML = "";
+  for (let d in dept) {
+    deptHTML += `<p>${d}: ${dept[d]}</p>`;
+  }
+  document.getElementById("deptStats").innerHTML = deptHTML;
 
-  for (let area in grouped) {
-    let count = grouped[area];
-
-    let color = "green";
-    if (count > 2) color = "orange";
-    if (count > 4) color = "red";
-
-    html += `
-      <div class="map-cell" style="background:${color}">
-        ${area} <br> ${count}
+  // LIST
+  let listHTML = "";
+  data.forEach(c => {
+    listHTML += `
+      <div class="dash-item">
+        <div>
+          <strong>${c.title}</strong><br>
+          ${c.department} | ${c.priority} | ${c.status}
+        </div>
+        <button onclick="resolve('${c.id}')">Resolve</button>
       </div>
     `;
-  }
+  });
+  document.getElementById("complaintList").innerHTML = listHTML;
 
-  grid.innerHTML = html;
+  // MAP
+  renderMap(data);
+}
+function filterPanchayat(value) {
+  if (value === "all") {
+    updateDashboard(complaints);
+  } else {
+    let filtered = complaints.filter(c => c.panchayat === value);
+    updateDashboard(filtered);
+  }
 }
