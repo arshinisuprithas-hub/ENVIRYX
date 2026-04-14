@@ -18,10 +18,39 @@ function save() {
 
 function renderHome() {
   document.getElementById("app").innerHTML = `
-    <button onclick="login('citizen')">Login Citizen</button>
-    <button onclick="login('admin')">Login Authority</button>
-    <button onclick="toggleVoice()">🎤 Voice</button>
-    <div id="voiceOutput"></div>
+  
+  <div class="hero">
+
+    <div class="nav">
+      <h2>Enviryx</h2>
+      <div>
+        <button onclick="renderHome()">Home</button>
+        <button onclick="renderDashboard()">Dashboard</button>
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <h1>
+        Predicting & <span>Preventing</span> Civic Issues
+      </h1>
+
+      <p>
+        AI-powered civic infrastructure system to detect, track and resolve issues faster.
+      </p>
+
+      <div class="actions">
+        <button onclick="login('citizen')">Citizen Login</button>
+        <button onclick="login('admin')">Admin Login</button>
+      </div>
+
+      <div class="voice">
+        <button onclick="toggleVoice()">🎤</button>
+        <p id="voiceOutput"></p>
+      </div>
+
+    </div>
+
+  </div>
   `;
 }
 
