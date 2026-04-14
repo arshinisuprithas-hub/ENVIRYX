@@ -1,18 +1,86 @@
 body {
-  font-family: Arial;
-  text-align: center;
-  background: #f4f6f8;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
 }
 
-button {
-  padding: 10px;
-  margin: 5px;
+/* NAVBAR */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+}
+
+.nav button {
+  background: transparent;
+  border: none;
+  color: white;
+  margin-left: 10px;
   cursor: pointer;
 }
 
-.card {
-  background: white;
-  padding: 10px;
-  margin: 10px;
+/* HERO */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-content {
+  margin-top: 80px;
+  padding-left: 60px;
+  max-width: 700px;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  line-height: 1.2;
+}
+
+.hero-content span {
+  color: #3b82f6;
+}
+
+.hero-content p {
+  margin-top: 15px;
+  color: #cbd5f5;
+}
+
+/* BUTTONS */
+.actions {
+  margin-top: 20px;
+}
+
+.actions button {
+  padding: 12px 20px;
+  margin-right: 10px;
   border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #3b82f6;
+  color: white;
+}
+
+.actions button:hover {
+  background: #2563eb;
+}
+
+/* VOICE */
+.voice {
+  margin-top: 20px;
+}
+
+.voice button {
+  font-size: 20px;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background: #22c55e;
+  border: none;
+  cursor: pointer;
+}
+
+.voice button:hover {
+  background: #16a34a;
 }
