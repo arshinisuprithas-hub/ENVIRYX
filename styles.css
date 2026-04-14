@@ -344,3 +344,47 @@ body {
 .dashboard-list {
   margin-top: 20px;
 }
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  margin-left: 80px;
+  margin-top: 0; /* REMOVE GAP */
+}
+
+.nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.nav-links {
+  margin-left: auto;
+}
+
+.hero-content h1 {
+  font-size: 110px;
+  color: #22c55e;
+}
+
+.hero-content p {
+  color: #ffffff; /* FIX VISIBILITY */
+}
+
+.tagline {
+  color: white;
+}
+
+.stats {
+  margin-top: 80px; /* PUSH DOWN */
+}
+
+.voice {
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+}
