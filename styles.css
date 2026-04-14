@@ -329,3 +329,18 @@ body {
   min-width: 120px;
   text-align: center;
 }
+.filter {
+  margin-bottom: 20px;
+}
+
+.department-box {
+  margin: 20px 0;
+}
+
+.department-box p {
+  margin: 5px 0;
+}
+
+.dashboard-list {
+  margin-top: 20px;
+}
