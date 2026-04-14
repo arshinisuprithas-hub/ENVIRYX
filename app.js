@@ -246,6 +246,7 @@ function submitIssue() {
     department: ai.dept,
     priority: ai.priority,
     status: "Submitted"
+    location: { lat: Math.random()*100, lng: Math.random()*100 }
   };
 
   complaints.push(newItem);
@@ -253,4 +254,32 @@ function submitIssue() {
 
   alert("✅ Issue submitted with AI classification!");
   renderDashboard();
+}
+function renderMap(data) {
+  let grid = document.getElementById("mapGrid");
+
+  let grouped = {};
+
+  // GROUP BY PANCHAYAT
+  data.forEach(c => {
+    grouped[c.panchayat] = (grouped[c.panchayat] || 0) + 1;
+  });
+
+  let html = "";
+
+  for (let area in grouped) {
+    let count = grouped[area];
+
+    let color = "green";
+    if (count > 2) color = "orange";
+    if (count > 4) color = "red";
+
+    html += `
+      <div class="map-cell" style="background:${color}">
+        ${area} <br> ${count}
+      </div>
+    `;
+  }
+
+  grid.innerHTML = html;
 }
