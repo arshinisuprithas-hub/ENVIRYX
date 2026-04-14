@@ -148,7 +148,11 @@ function renderDashboard() {
         </div>
 
         <div class="dashboard-list">
-  `;
+        <div class="map-box">
+        <h3>📍 Issue Heatmap</h3>
+        <div id="mapGrid"></div>
+        </div>
+        `;
 
   complaints.forEach(c => {
     html += `
@@ -261,6 +265,33 @@ function renderMap(data) {
   let grouped = {};
 
   // GROUP BY PANCHAYAT
+  data.forEach(c => {
+    grouped[c.panchayat] = (grouped[c.panchayat] || 0) + 1;
+  });
+
+  let html = "";
+
+  for (let area in grouped) {
+    let count = grouped[area];
+
+    let color = "green";
+    if (count > 2) color = "orange";
+    if (count > 4) color = "red";
+
+    html += `
+      <div class="map-cell" style="background:${color}">
+        ${area} <br> ${count}
+      </div>
+    `;
+  }
+
+  grid.innerHTML = html;
+}
+function renderMap(data) {
+  let grid = document.getElementById("mapGrid");
+
+  let grouped = {};
+
   data.forEach(c => {
     grouped[c.panchayat] = (grouped[c.panchayat] || 0) + 1;
   });
