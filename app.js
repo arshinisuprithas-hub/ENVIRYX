@@ -53,10 +53,11 @@ function renderHome() {
      <button onclick="login('citizen')"><i class="fas fa-user"></i> Citizen Login</button>
      <button onclick="login('admin')"><i class="fas fa-user-shield"></i> Admin Login</button>
      </div>
-      <div class="stats">
-      <div><h2>12,847</h2><p>Issues Resolved</p></div>
-      <div><h2>3,200+</h2><p>Active Reports</p></div>
-      <div><h2>94.7%</h2><p>AI Accuracy</p></div>
+      <div class="dashboard-stats">
+      <div class="dash-card"><h3 id="total"></h3><p>Total</p></div>
+      <div class="dash-card"><h3 id="active"></h3><p>Active</p></div>
+      <div class="dash-card"><h3 id="pending"></h3><p>Pending</p></div>
+      <div class="dash-card"><h3 id="resolved"></h3><p>Resolved</p></div>
       </div>
 
       <!-- VOICE -->
@@ -96,7 +97,8 @@ function classify(text) {
   return {type:"General Issue", dept:"General Dept", priority:"Low"};
 }
 function renderReport() {
-  document.getElementById("app").innerHTML = `
+  document.getElementById("active").innerText =
+  data.filter(c => c.status !== "Resolved").length;
     <div class="hero">
 
       <div class="report-container ai-box">
@@ -139,6 +141,20 @@ function renderDashboard() {
             <option value="all">All</option>
             <option value="Tambaram">Tambaram</option>
             <option value="Kovalam">Kovalam</option>
+      <div class="ai-insights">
+  <div class="insight red">
+    <h4>Water Leak Surge</h4>
+    <p>Expected increase in next 48 hours</p>
+  </div>
+  <div class="insight orange">
+    <h4>Waste Optimization</h4>
+    <p>Improve collection efficiency</p>
+  </div>
+  <div class="insight blue">
+    <h4>Pollution Pattern</h4>
+    <p>Industrial zone spikes detected</p>
+  </div>
+</div>
           </select>
         </div>
 
@@ -165,13 +181,30 @@ function renderDashboard() {
         </div>
 
         <!-- HEATMAP -->
-        <div class="map-box">
-          <h3>📍 Heatmap</h3>
-          <div id="mapGrid"></div>
-        </div>
+        let html = "";
+  for (let area in grouped) {
+  let count = grouped[area];
+
+  let color = "#22c55e";
+  if (count > 2) color = "#f59e0b";
+  if (count > 4) color = "#ef4444";
+
+  html += `
+    <div class="heat-row">
+      <span>${area}</span>
+      <div class="bar">
+        <div class="fill" style="width:${count*20}%; background:${color}"></div>
+      </div>
+      <span>${count} issues</span>
+    </div>
+  `;
+}
 
         <!-- LIST -->
         <div class="dashboard-list" id="complaintList"></div>
+        <div class="search-box">
+        <input type="text" placeholder="Search complaints..." onkeyup="searchComplaints(this.value)">
+        </div>
 
       </div>
     </div>
@@ -336,4 +369,10 @@ function filterPanchayat(value) {
     let filtered = complaints.filter(c => c.panchayat === value);
     updateDashboard(filtered);
   }
+}
+function searchComplaints(value) {
+  let filtered = complaints.filter(c =>
+    c.title.toLowerCase().includes(value.toLowerCase())
+  );
+  updateDashboard(filtered);
 }
