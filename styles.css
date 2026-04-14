@@ -8,8 +8,15 @@ body {
 
 /* DARK OVERLAY */
 .hero {
-  background: rgba(0,0,0,0.75);
   height: 100vh;
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
 }
 
 /* NAVBAR */
@@ -40,9 +47,12 @@ body {
 
 /* HERO CONTENT */
 .hero-content {
-  margin-top: 100px;
-  padding-left: 60px;
-  max-width: 700px;
+  position: relative;
+  z-index: 2;
+}
+.nav {
+  position: relative;
+  z-index: 2;
 }
 
 .hero-content h1 {
@@ -66,25 +76,22 @@ body {
 }
 
 /* BUTTONS */
-.actions {
-  margin-top: 25px;
-}
-
 .actions button {
-  padding: 12px 20px;
-  margin-right: 10px;
-  border-radius: 8px;
+  padding: 14px 24px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
-  background: #3b82f6;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: white;
   font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 8px 25px rgba(59,130,246,0.5);
+  transition: 0.3s;
 }
 
 .actions button:hover {
-  background: #2563eb;
+  transform: scale(1.05);
 }
-
 /* VOICE BUTTON */
 .voice {
   margin-top: 30px;
