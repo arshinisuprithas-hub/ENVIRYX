@@ -176,26 +176,6 @@ function renderDashboard() {
       </div>
     </div>
   `;
-
-  complaints.forEach(c => {
-  html += `
-    <div class="dash-item">
-      <div>
-        <strong>${c.title}</strong><br>
-        <span>${c.department} | ${c.priority} | ${c.status}</span><br>
-        <span>${c.panchayat}</span>
-      </div>
-      <button onclick="resolve('${c.id}')">Resolve</button>
-    </div>
-  `;
-});
-
-html += `
-      </div>
-    </div>
-  </div>
-`;
-
 document.getElementById("app").innerHTML = html;
 updateDashboard(complaints);
 }
